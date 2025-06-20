@@ -1,0 +1,110 @@
+/* style.css 优化后代码 */
+:root {
+    --primary-color: #ff6b6b;
+    --secondary-color: #4ecdc4;
+    --glass-opacity: 0.9;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+body {
+    background: #0d0d0d;
+    line-height: 1.6;
+}
+
+.video-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+}
+
+#biliIframe {
+    flex-grow: 1;
+    box-shadow: 0 0 20px var(--shadow-color);
+    border-radius: 12px;
+    margin: 15px;
+}
+
+.control-bar {
+    position: relative;
+    padding: 15px 25px;
+    background: rgba(25, 25, 25, var(--glass-opacity));
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    margin: 0 15px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+}
+
+.control-btn {
+    font-size: 1.3em;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.progress-container {
+    flex-grow: 1;
+    margin: 0 20px;
+    max-width: 600px;
+}
+
+.progress-bar {
+    height: 4px;
+    background: #333;
+}
+
+.progress-bar::-webkit-slider-thumb {
+    width: 24px;
+    height: 24px;
+    background: var(--primary-color);
+    border: 3px solid #0d0d0d;
+}
+
+.quality-select {
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.quality-list {
+    position: absolute;
+    right: 25px;
+    top: 50px;
+    background: rgba(25, 25, 25, 0.9);
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: none;
+}
+
+.quality-list li {
+    cursor: pointer;
+    padding: 4px 8px;
+    white-space: nowrap;
+}
+
+.quality-list li:hover {
+    color: var(--primary-color);
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+    .control-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+        margin: 0 10px 10px;
+    }
+
+    .progress-container {
+        margin: 10px 0;
+        width: 100%;
+    }
+}

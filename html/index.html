@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>桃花视频 - 精选舞蹈合集</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- Tailwind配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF4B91',      // 主色：粉色
+                        secondary: '#3B82F6',    // 辅助色：蓝色
+                        dark: '#1A1A2E',         // 深色背景
+                        light: '#F9F9F9',        // 浅色文本
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .glass-effect {
+                backdrop-filter: blur(12px);
+                background-color: rgba(26, 26, 46, 0.8);
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            }
+            .animate-float {
+                animation: float 6s ease-in-out infinite;
+            }
+            .animate-fall {
+                animation: falling 10s linear forwards;
+            }
+        }
+        
+        /* 桃花飘落动画 */
+        @keyframes falling {
+            0% {
+                transform: translateY(-10px) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        /* 滚动条美化 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(26, 26, 46, 0.5);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 75, 145, 0.5);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 75, 145, 0.8);
+        }
+    </style>
+</head>
+<body class="bg-dark text-light min-h-screen flex flex-col overflow-x-hidden">
+    <!-- 导航栏 -->
+    <nav class="glass-effect py-4 px-6 flex justify-between items-center sticky top-0 z-50">
+        <div class="flex items-center space-x-2">
+            <i class="fa fa-play-circle text-primary text-2xl"></i>
+            <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">张总の小爱好</h1>
+        </div>
+        <div class="hidden md:flex items-center space-x-6">
+            <a href="#" class="hover:text-primary transition-colors">首页</a>
+            <a href="#" class="hover:text-primary transition-colors">舞蹈分类</a>
+            <a href="#" class="hover:text-primary transition-colors">热门推荐</a>
+            <a href="#" class="hover:text-primary transition-colors">关于我们</a>
+        </div>
+        <button class="md:hidden text-2xl">
+            <i class="fa fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- 主要内容区 -->
+    <main class="flex-grow flex flex-col items-center justify-center px-4 py-8">
+        <!-- 标题区域 -->
+        <div class="text-center mb-8 animate-float">
+            <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-2 text-shadow">舞蹈视频</h2>
+            <p class="text-gray-400">收录全网最精彩的舞蹈表演，给您沉浸式观赏体验</p>
+        </div>
+        
+        <!-- 视频播放区域 -->
+        <div class="w-full max-w-5xl bg-gradient-to-br from-secondary/20 to-primary/20 rounded-2xl p-1 shadow-2xl animate-float">
+            <div class="relative rounded-xl overflow-hidden aspect-video">
+                <iframe id="biliIframe" 
+                src="//player.bilibili.com/player.html?bvid=BV1Js421G7wN&t=0.3&autoplay=0&muted=1&high_quality=2" 
+                frameborder="0" 
+                allowfullscreen
+                class="w-full h-full">
+        </iframe>
+                
+                <!-- 移动端播放提示 -->
+                <div id="mobilePlayTip" class="absolute inset-0 flex items-center justify-center bg-dark/50 cursor-pointer md:hidden">
+                    <div class="text-center p-6">
+                        <i class="fa fa-play-circle text-primary text-5xl mb-3"></i>
+                        <p class="text-lg">点击播放视频</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 视频信息 -->
+            <div class="p-6">
+                <h3 class="text-xl font-bold mb-2">青春活力舞蹈秀 - 校园风采</h3>
+                <div class="flex items-center justify-between text-sm text-gray-400 mb-4">
+                    <span>播放量：24.5万</span>
+                    <span>发布时间：2023-06-15</span>
+                </div>
+                
+                <!-- 控制栏 -->
+                <div class="glass-effect rounded-lg p-4 mt-4">
+                    <div class="flex flex-col space-y-4">
+                        <!-- 播放控制 -->
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-6">
+                                <button id="playPauseBtn" class="text-2xl text-primary hover:text-primary/80 transition-colors">
+                                    <i class="fa fa-play"></i>
+                                </button>
+                                <button class="text-xl hover:text-primary transition-colors">
+                                    <i class="fa fa-step-backward"></i>
+                                </button>
+                                <button class="text-xl hover:text-primary transition-colors">
+                                    <i class="fa fa-step-forward"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="flex items-center space-x-4">
+                                <button class="hover:text-primary transition-colors">
+                                    <i class="fa fa-volume-up"></i>
+                                </button>
+                                <button class="hover:text-primary transition-colors">
+                                    <i class="fa fa-cog"></i>
+                                </button>
+                                <button class="hover:text-primary transition-colors">
+                                    <i class="fa fa-expand"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- 进度条 -->
+                        <div class="relative">
+                            <input type="range" id="progressSlider" class="w-full h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer">
+                            <div class="absolute -top-6 left-0 text-xs text-primary" id="timeDisplay">00:00 / 03:45</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 推荐视频 -->
+        <div class="w-full max-w-5xl mt-12">
+            <h3 class="text-xl font-bold mb-4 flex items-center">
+                <i class="fa fa-thumbs-up text-primary mr-2"></i>
+                猜你喜欢
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 推荐视频卡片1 -->
+                <div class="bg-dark/50 rounded-xl overflow-hidden hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="relative aspect-video">
+                        <img src="https://picsum.photos/seed/dance1/600/400" alt="舞蹈视频缩略图" class="w-full h-full object-cover">
+                        <div class="absolute bottom-2 right-2 bg-dark/70 text-xs px-2 py-1 rounded">03:45</div>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-semibold mb-2 line-clamp-1">国风古典舞《霓裳羽衣曲》</h4>
+                        <div class="flex items-center text-xs text-gray-400">
+                            <span>播放量：12.8万</span>
+                            <span class="mx-2">•</span>
+                            <span>2023-05-20</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 推荐视频卡片2 -->
+                <div class="bg-dark/50 rounded-xl overflow-hidden hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="relative aspect-video">
+                        <img src="https://picsum.photos/seed/dance2/600/400" alt="舞蹈视频缩略图" class="w-full h-full object-cover">
+                        <div class="absolute bottom-2 right-2 bg-dark/70 text-xs px-2 py-1 rounded">05:12</div>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-semibold mb-2 line-clamp-1">现代爵士舞《Feel Good》</h4>
+                        <div class="flex items-center text-xs text-gray-400">
+                            <span>播放量：8.3万</span>
+                            <span class="mx-2">•</span>
+                            <span>2023-04-18</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 推荐视频卡片3 -->
+                <div class="bg-dark/50 rounded-xl overflow-hidden hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="relative aspect-video">
+                        <img src="https://picsum.photos/seed/dance3/600/400" alt="舞蹈视频缩略图" class="w-full h-full object-cover">
+                        <div class="absolute bottom-2 right-2 bg-dark/70 text-xs px-2 py-1 rounded">04:28</div>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-semibold mb-2 line-clamp-1">街舞Battle精彩瞬间集锦</h4>
+                        <div class="flex items-center text-xs text-gray-400">
+                            <span>播放量：36.7万</span>
+                            <span class="mx-2">•</span>
+                            <span>2023-07-05</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="glass-effect py-6 px-4 text-center text-sm text-gray-400">
+        <p>© 2023 桃花视频 - 精选舞蹈合集</p>
+        <p class="mt-2">本网站内容均来自B站公开视频，如有侵权请联系删除</p>
+    </footer>
+
+    <!-- 桃花元素容器 -->
+    <div id="cherryBlossoms" class="fixed inset-0 pointer-events-none z-40"></div>
+
+    <script>
+        // 桃花飘落效果
+        function createCherryBlossoms() {
+            const container = document.getElementById('cherryBlossoms');
+            const totalBlossoms = 20;
+            
+            for (let i = 0; i < totalBlossoms; i++) {
+                const blossom = document.createElement('div');
+                const size = Math.random() * 20 + 10; // 花瓣大小10-30px
+                
+                blossom.innerHTML = '<i class="fa fa-heart text-primary/60"></i>';
+                blossom.style.cssText = `
+                    position: absolute;
+                    left: ${Math.random() * 100}vw;
+                    top: ${-Math.random() * 100}px;
+                    font-size: ${size}px;
+                    opacity: ${Math.random() * 0.5 + 0.5};
+                    animation: falling ${Math.random() * 10 + 10}s linear infinite;
+                    animation-delay: ${Math.random() * 10}s;
+                    transform: rotate(${Math.random() * 360}deg);
+                `;
+                
+                container.appendChild(blossom);
+            }
+        }
+        
+        // 播放控制
+        document.addEventListener('DOMContentLoaded', function() {
+            createCherryBlossoms();
+            
+            const playPauseBtn = document.getElementById('playPauseBtn');
+            const progressSlider = document.getElementById('progressSlider');
+            const timeDisplay = document.getElementById('timeDisplay');
+            const mobilePlayTip = document.getElementById('mobilePlayTip');
+            const biliIframe = document.getElementById('biliIframe');
+            
+            let isPlaying = false;
+            
+            // 移动端点击播放
+            mobilePlayTip.addEventListener('click', function() {
+                if (!isPlaying) {
+                    playPauseBtn.innerHTML = '<i class="fa fa-pause"></i>';
+                    isPlaying = true;
+                    mobilePlayTip.style.display = 'none';
+                    
+                    // 移动端需要用户交互后才能播放
+                    biliIframe.src = biliIframe.src.replace('autoplay=0', 'autoplay=1');
+                }
+            });
+            
+            // 播放/暂停按钮
+            playPauseBtn.addEventListener('click', function() {
+                if (isPlaying) {
+                    playPauseBtn.innerHTML = '<i class="fa fa-play"></i>';
+                    // 向iframe发送暂停命令
+                    biliIframe.contentWindow.postMessage('{"command":"pause"}', '*');
+                } else {
+                    playPauseBtn.innerHTML = '<i class="fa fa-pause"></i>';
+                    // 向iframe发送播放命令
+                    biliIframe.contentWindow.postMessage('{"command":"play"}', '*');
+                }
+                isPlaying = !isPlaying;
+            });
+            
+            // 模拟进度条更新（实际项目中需要从iframe接收视频进度）
+            setInterval(function() {
+                const currentTime = progressSlider.value;
+                const duration = 225; // 假设视频时长3:45
+                
+                // 更新进度条
+                progressSlider.value = (currentTime >= duration) ? 0 : currentTime + 1;
+                
+                // 更新时间显示
+                const minutes = Math.floor(currentTime / 60);
+                const seconds = Math.floor(currentTime % 60);
+                const minutesTotal = Math.floor(duration / 60);
+                const secondsTotal = Math.floor(duration % 60);
+                
+                timeDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} / ${minutesTotal.toString().padStart(2, '0')}:${secondsTotal.toString().padStart(2, '0')}`;
+                
+                // 如果视频结束，重置播放状态
+                if (currentTime >= duration) {
+                    playPauseBtn.innerHTML = '<i class="fa fa-play"></i>';
+                    isPlaying = false;
+                }
+            }, 1000);
+            
+            // 进度条点击跳转
+            progressSlider.addEventListener('input', function() {
+                const seekTime = progressSlider.value;
+                // 向iframe发送跳转命令
+                biliIframe.contentWindow.postMessage(`{"command":"seekTo","time":${seekTime}}`, '*');
+            });
+            
+            // 窗口大小变化时重新生成桃花
+            window.addEventListener('resize', function() {
+                const container = document.getElementById('cherryBlossoms');
+                container.innerHTML = '';
+                createCherryBlossoms();
+            });
+        });
+    </script>
+</body>
+</html>
